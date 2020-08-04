@@ -68,8 +68,7 @@ class CircleColorPicker extends StatefulWidget {
   _CircleColorPickerState createState() => _CircleColorPickerState();
 }
 
-class _CircleColorPickerState extends State<CircleColorPicker>
-    with TickerProviderStateMixin {
+class _CircleColorPickerState extends State<CircleColorPicker> with TickerProviderStateMixin {
   AnimationController _lightnessController;
   AnimationController _hueController;
 
@@ -108,12 +107,6 @@ class _CircleColorPickerState extends State<CircleColorPicker>
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
-                        widget.colorCodeBuilder != null
-                            ? widget.colorCodeBuilder(context, _color)
-                            : Text(
-                                '#${_color.value.toRadixString(16).substring(2)}',
-                                style: widget.textStyle,
-                              ),
                         const SizedBox(height: 16),
                         Container(
                           width: 64,
@@ -199,8 +192,7 @@ class _LightnessSlider extends StatefulWidget {
   _LightnessSliderState createState() => _LightnessSliderState();
 }
 
-class _LightnessSliderState extends State<_LightnessSlider>
-    with TickerProviderStateMixin {
+class _LightnessSliderState extends State<_LightnessSlider> with TickerProviderStateMixin {
   AnimationController _lightnessController;
   AnimationController _scaleController;
 
@@ -218,9 +210,10 @@ class _LightnessSliderState extends State<_LightnessSlider>
           children: <Widget>[
             Container(
               width: double.infinity,
-              height: 12,
-              margin: EdgeInsets.symmetric(
-                horizontal: widget.thumbSize / 3,
+              height: 5,
+              margin: EdgeInsets.only(
+                left: widget.thumbSize,
+                right: widget.thumbSize,
               ),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(6)),
@@ -238,12 +231,12 @@ class _LightnessSliderState extends State<_LightnessSlider>
               animation: _lightnessController,
               builder: (context, child) {
                 return Positioned(
-                  left: _lightnessController.value *
-                      (widget.width - widget.thumbSize),
+                  width: widget.width - widget.thumbSize * 3,
+                  left: _lightnessController.value * (widget.width - widget.thumbSize * 2.5),
                   child: ScaleTransition(
                     scale: _scaleController,
                     child: _Thumb(
-                      size: widget.thumbSize,
+                      size: widget.thumbSize * 0.7,
                       color: HSLColor.fromAHSL(
                         1,
                         widget.hue,
